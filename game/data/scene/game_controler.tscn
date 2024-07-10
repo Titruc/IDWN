@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhh8ys6olygf4"]
+
+[ext_resource type="Script" path="res://game/data/script/ui/natifKeyBind.gd" id="1_d1bn3"]
+
+[node name="gameControler" type="Node"]
+
+[node name="natifKeyBind" type="Node" parent="."]
+script = ExtResource("1_d1bn3")
