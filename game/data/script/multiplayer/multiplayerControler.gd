@@ -5,6 +5,7 @@ var peer = ENetMultiplayerPeer.new()
 @export var lobbyScene : Node3D
 @export var gameControler : Node
 @export var menu : Node2D
+@export var ipGetter : TextEdit
 
 
 func _on_host_pressed():
@@ -22,7 +23,7 @@ func _addPlayer(id = 1):
 	
 	
 func _on_join_pressed():
-	peer.create_client("localhost",1617)
+	peer.create_client(ipGetter.text,1617)
 	multiplayer.multiplayer_peer = peer
 	menu.hide()
 	
