@@ -1,11 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhh8ys6olygf4"]
+[gd_scene load_steps=6 format=3 uid="uid://bhh8ys6olygf4"]
 
 [ext_resource type="Script" path="res://game/data/script/ui/natifKeyBind.gd" id="1_d1bn3"]
 [ext_resource type="PackedScene" uid="uid://bis3avr2iu1k0" path="res://game/data/scene/lobby.tscn" id="2_6wbr4"]
+[ext_resource type="PackedScene" uid="uid://1depus7kewl3" path="res://game/data/scene/multiplayer_menue.tscn" id="3_1db4s"]
+[ext_resource type="PackedScene" uid="uid://dwxc0nojql6tp" path="res://game/data/scene/player.tscn" id="3_m42tk"]
+[ext_resource type="Script" path="res://game/data/script/multiplayer/multiplayerControler.gd" id="3_pn7fh"]
 
 [node name="gameControler" type="Node"]
 
 [node name="natifKeyBind" type="Node" parent="."]
 script = ExtResource("1_d1bn3")
 
+[node name="multiplayerControler" type="Node" parent="." node_paths=PackedStringArray("lobbyScene", "gameControler", "menu")]
+script = ExtResource("3_pn7fh")
+playerScene = ExtResource("3_m42tk")
+lobbyScene = NodePath("../lobby")
+gameControler = NodePath("..")
+menu = NodePath("../multiplayerMenue")
+
 [node name="lobby" parent="." instance=ExtResource("2_6wbr4")]
+
+[node name="multiplayerMenue" parent="." instance=ExtResource("3_1db4s")]
+
+[connection signal="pressed" from="multiplayerMenue/host" to="multiplayerControler" method="_on_host_pressed"]
+[connection signal="pressed" from="multiplayerMenue/join" to="multiplayerControler" method="_on_join_pressed"]
+
+[editable path="lobby"]
+[editable path="multiplayerMenue"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwxc0nojql6tp"]
+[gd_scene load_steps=8 format=3 uid="uid://dwxc0nojql6tp"]
 
 [ext_resource type="Script" path="res://game/data/script/entity/player/default/controler.gd" id="1_d2vbu"]
 [ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
@@ -24,6 +24,11 @@ height = 1.6
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0wadm"]
 points = PackedVector3Array(0.142026, 0.685575, 0.116624, -0.162698, -0.711031, -0.0610912, -0.137264, -0.711031, -0.111862, -0.162698, 0.711031, -0.0610912, 0.116624, 0.711031, -0.137264, 0.16746, -0.711031, -0.0356894, -0.0610912, -0.685575, 0.16746, -0.137264, 0.711031, 0.116624, 0.0658531, -0.711031, -0.162698, -0.0610912, 0.711031, -0.162698, 0.116624, -0.685575, 0.142026, 0.0404513, 0.711031, 0.16746, -0.162698, -0.711031, 0.0658531, 0.16746, 0.685575, -0.0610912, 0.16746, -0.685575, 0.0658531, 0.0625551, -0.770471, 0.0625551, 0.0627165, 0.772537, -0.0579546, -0.0610912, -0.711031, -0.162698, 0.142026, -0.685575, -0.111862, -0.0610912, 0.685575, 0.16746, 0.0658531, 0.711031, -0.162698, -0.162698, 0.711031, 0.0658531, 0.0658531, -0.685575, 0.16746, -0.111862, 0.711031, -0.137264, 0.16746, 0.685575, 0.0658531, -0.111862, -0.685575, 0.142026, -0.058134, -0.774834, -0.058134, -0.057957, 0.772568, 0.0627189, 0.116624, 0.685575, 0.142026, 0.142026, 0.736488, 0.0912549, -0.0579546, -0.772537, 0.0627165, 0.0627189, -0.772568, -0.057957)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_oqbdd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler")]
 script = ExtResource("1_d2vbu")
 playerAttribute = SubResource("Resource_04fj1")
@@ -41,3 +46,6 @@ shape = SubResource("ConvexPolygonShape3D_0wadm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.610856, 0.0914609)
 
 [node name="velocityComponent" parent="." instance=ExtResource("2_ler7n")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_oqbdd")

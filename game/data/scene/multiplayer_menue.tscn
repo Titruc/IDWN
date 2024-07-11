@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://1depus7kewl3"]
+
+[node name="multiplayerMenue" type="Node2D"]
+
+[node name="host" type="Button" parent="."]
+offset_left = 391.0
+offset_top = 36.0
+offset_right = 735.0
+offset_bottom = 81.0
+text = "host"
+
+[node name="join" type="Button" parent="."]
+offset_left = 400.0
+offset_top = 97.0
+offset_right = 732.0
+offset_bottom = 145.0
+text = "join"
