@@ -1,6 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwxc0nojql6tp"]
+[gd_scene load_steps=7 format=3 uid="uid://dwxc0nojql6tp"]
 
 [ext_resource type="Script" path="res://game/data/script/entity/player/default/controler.gd" id="1_d2vbu"]
+[ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
+[ext_resource type="Script" path="res://game/data/script/ressources/player/playerAttribute.gd" id="2_mss32"]
+
+[sub_resource type="Resource" id="Resource_04fj1"]
+script = ExtResource("2_mss32")
+WALK_SPEED = 5.0
+SPRINT_SPEED = 7.5
+SPEED_VARIATION = 1.0
+JUMP_VELOCITY = 4.5
+SENSITIVITY = 0.005
+FOV = 75
+FOV_VARIATION = 20.0
+BOB_FREQUENTY = 2.0
+BOB_AMPLITUDE = 0.06
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u3t1x"]
 radius = 0.15
@@ -9,8 +23,10 @@ height = 1.6
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0wadm"]
 points = PackedVector3Array(0.142026, 0.685575, 0.116624, -0.162698, -0.711031, -0.0610912, -0.137264, -0.711031, -0.111862, -0.162698, 0.711031, -0.0610912, 0.116624, 0.711031, -0.137264, 0.16746, -0.711031, -0.0356894, -0.0610912, -0.685575, 0.16746, -0.137264, 0.711031, 0.116624, 0.0658531, -0.711031, -0.162698, -0.0610912, 0.711031, -0.162698, 0.116624, -0.685575, 0.142026, 0.0404513, 0.711031, 0.16746, -0.162698, -0.711031, 0.0658531, 0.16746, 0.685575, -0.0610912, 0.16746, -0.685575, 0.0658531, 0.0625551, -0.770471, 0.0625551, 0.0627165, 0.772537, -0.0579546, -0.0610912, -0.711031, -0.162698, 0.142026, -0.685575, -0.111862, -0.0610912, 0.685575, 0.16746, 0.0658531, 0.711031, -0.162698, -0.162698, 0.711031, 0.0658531, 0.0658531, -0.685575, 0.16746, -0.111862, 0.711031, -0.137264, 0.16746, 0.685575, 0.0658531, -0.111862, -0.685575, 0.142026, -0.058134, -0.774834, -0.058134, -0.057957, 0.772568, 0.0627189, 0.116624, 0.685575, 0.142026, 0.142026, 0.736488, 0.0912549, -0.0579546, -0.772537, 0.0627165, 0.0627189, -0.772568, -0.057957)
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler")]
 script = ExtResource("1_d2vbu")
+playerAttribute = SubResource("Resource_04fj1")
+velocityHandler = NodePath("velocityComponent")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_u3t1x")
@@ -22,3 +38,5 @@ shape = SubResource("ConvexPolygonShape3D_0wadm")
 
 [node name="playerCamera" type="Camera3D" parent="head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.610856, 0.0914609)
+
+[node name="velocityComponent" parent="." instance=ExtResource("2_ler7n")]
