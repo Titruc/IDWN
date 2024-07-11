@@ -15,6 +15,8 @@ var bob_progress : float = 0.0
 @onready var camera : Camera3D = $head/playerCamera
 @export var velocityHandler : velocityComponent
 
+
+
 func _ready():
 	set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
