@@ -21,6 +21,10 @@ boot_splash/minimum_display_time=3000
 
 window/size/mode=3
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [input]
 
 screenMode={
