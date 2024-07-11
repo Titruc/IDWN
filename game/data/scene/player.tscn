@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwxc0nojql6tp"]
+[gd_scene load_steps=11 format=3 uid="uid://dwxc0nojql6tp"]
 
 [ext_resource type="Script" path="res://game/data/script/entity/player/default/controler.gd" id="1_d2vbu"]
 [ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
 [ext_resource type="Script" path="res://game/data/script/ressources/player/playerAttribute.gd" id="2_mss32"]
+[ext_resource type="PackedScene" uid="uid://bptq7ti2b10tu" path="res://editor/component/input_handler.tscn" id="4_7n2wk"]
+[ext_resource type="Script" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="5_ceukn"]
+[ext_resource type="Script" path="res://addons/netfox/tick-interpolator.gd" id="6_lx473"]
 
 [sub_resource type="Resource" id="Resource_04fj1"]
 script = ExtResource("2_mss32")
@@ -29,10 +32,11 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler")]
 script = ExtResource("1_d2vbu")
 playerAttribute = SubResource("Resource_04fj1")
 velocityHandler = NodePath("velocityComponent")
+inputhandler = NodePath("inputHandler")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_u3t1x")
@@ -47,5 +51,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.610856, 0.0914609)
 
 [node name="velocityComponent" parent="." instance=ExtResource("2_ler7n")]
 
+[node name="inputHandler" parent="." instance=ExtResource("4_7n2wk")]
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_oqbdd")
+
+[node name="RollbackSynchronizer" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("5_ceukn")
+root = NodePath("..")
+state_properties = Array[String]([":global_transform", ":velocity"])
+input_properties = Array[String](["inputHandler:asJump", "inputHandler:isSprinting", "inputHandler:direction"])
+
+[node name="TickInterpolator" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("6_lx473")
+root = NodePath("..")
+properties = Array[String]([":global_transform", ":velocity"])
