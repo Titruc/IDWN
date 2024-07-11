@@ -7,14 +7,15 @@
 [sub_resource type="Resource" id="Resource_04fj1"]
 script = ExtResource("2_mss32")
 WALK_SPEED = 5.0
-SPRINT_SPEED = 6.0
-SPEED_VARIATION = 0.2
+SPRINT_SPEED = 7.5
+SPEED_VARIATION = 1.0
 JUMP_VELOCITY = 4.5
-SENSITIVITY = 0.003
+SENSITIVITY = 0.005
 FOV = 75
 FOV_VARIATION = 20.0
 BOB_FREQUENTY = 2.0
 BOB_AMPLITUDE = 0.06
+GRAVITY = 9.81
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u3t1x"]
 radius = 0.15

@@ -9,8 +9,7 @@ var speed : float = 0.0
 
 #var for juicy stuff
 var bob_progress : float = 0.0
-#var for other stuff
-var gravity : float = 9.8
+
 
 @onready var head = $head
 @onready var camera = $head/playerCamera
@@ -33,7 +32,7 @@ func _physics_process(delta):
 	
 	if isAbleToMove:
 		if not is_on_floor():
-			velocityHandler.applyGravity(gravity, delta)
+			velocityHandler.applyGravity(playerAttribute.GRAVITY, delta)
 
 		# Handle Jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bis3avr2iu1k0"]
 
 [ext_resource type="PackedScene" uid="uid://dwxc0nojql6tp" path="res://game/data/scene/player.tscn" id="1_8egv6"]
-[ext_resource type="Texture2D" uid="uid://bbjyodii6nwfe" path="res://editor/assets/Texture/Temporaire/Echiquier.jpeg" id="1_34anw"]
+[ext_resource type="Texture2D" uid="uid://cwoq3st6476n2" path="res://editor/assets/Texture/Temporaire/Echiquier.jpeg" id="1_34anw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jaby8"]
 sky_top_color = Color(1, 1, 1, 1)

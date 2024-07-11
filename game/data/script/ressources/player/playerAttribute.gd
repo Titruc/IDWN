@@ -12,3 +12,4 @@ class_name playerAttribute
 #const for bobing head
 @export var BOB_FREQUENTY : float = 2.0
 @export var BOB_AMPLITUDE : float = 0.06
+@export var GRAVITY : float = 9.81
