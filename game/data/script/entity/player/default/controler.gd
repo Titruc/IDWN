@@ -16,11 +16,10 @@ var bob_progress : float = 0.0
 @export var velocityHandler : velocityComponent
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_multiplayer_authority(name.to_int())
-	camera.make_current()
-	print(name.to_int())
-	print("aaa", camera, name)
+	if is_multiplayer_authority():
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		camera.make_current()
 	
 func _unhandled_input(event):
 	
