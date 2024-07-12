@@ -10,6 +10,8 @@ func _ready():
 	NetworkTime.before_tick_loop.connect(_gather)
 
 func _gather():
+	if Input.is_action_just_pressed("jump"):
+		print("jump netwotk : " , Input.is_action_just_pressed("jump"))
 	if not is_multiplayer_authority():
 		return
 	if get_parent().name != "1":
