@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cr7mw00e22s6r"]
+
+[ext_resource type="Script" path="res://game/data/script/component/handComponent.gd" id="1_xgw0u"]
+
+[node name="handComponent" type="Node3D"]
+script = ExtResource("1_xgw0u")
+
+[node name="hand" type="RayCast3D" parent="."]
+exclude_parent = false
+target_position = Vector3(1, 0, 0)

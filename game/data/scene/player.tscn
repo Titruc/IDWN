@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwxc0nojql6tp"]
+[gd_scene load_steps=13 format=3 uid="uid://dwxc0nojql6tp"]
 
 [ext_resource type="Script" path="res://game/data/script/entity/player/default/controler.gd" id="1_d2vbu"]
 [ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
 [ext_resource type="Script" path="res://game/data/script/ressources/player/playerAttribute.gd" id="2_mss32"]
+[ext_resource type="PackedScene" uid="uid://cr7mw00e22s6r" path="res://editor/component/hand_component.tscn" id="3_2bvbn"]
 [ext_resource type="PackedScene" uid="uid://bptq7ti2b10tu" path="res://editor/component/input_handler.tscn" id="4_7n2wk"]
 [ext_resource type="Script" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="5_ceukn"]
 [ext_resource type="Script" path="res://addons/netfox/tick-interpolator.gd" id="6_lx473"]
@@ -33,12 +34,13 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand")]
 script = ExtResource("1_d2vbu")
 playerAttribute = SubResource("Resource_04fj1")
 velocityHandler = NodePath("velocityComponent")
 inputhandler = NodePath("inputHandler")
 isOnFloor = NodePath("isOnFloorComponent")
+hand = NodePath("head/playerCamera/handComponent")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_u3t1x")
@@ -51,6 +53,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57714, 0)
 
 [node name="playerCamera" type="Camera3D" parent="head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.610856, 0.0914609)
+
+[node name="handComponent" parent="head/playerCamera" instance=ExtResource("3_2bvbn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.091)
+handLenght = Vector3(0, 0, 300)
 
 [node name="velocityComponent" parent="." instance=ExtResource("2_ler7n")]
 

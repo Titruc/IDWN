@@ -106,4 +106,5 @@ text = "close game"
 [connection signal="pressed" from="ui/escape_menu/close_game" to="natifKeyBind" method="_on_close_game_pressed"]
 
 [editable path="lobby"]
+[editable path="lobby/bibou/interactibleComponent"]
 [editable path="ui/multiplayerMenue"]

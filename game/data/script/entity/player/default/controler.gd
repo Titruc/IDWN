@@ -16,7 +16,7 @@ var bob_progress : float = 0.0
 @export var velocityHandler : velocityComponent
 @export var inputhandler : inputHandler
 @export var isOnFloor : isOneFloorComponent
-
+@export var hand : handComponent
 
 
 func _ready():
@@ -93,7 +93,8 @@ func _process(delta):
 			bob_progress += delta * velocity.length() * float(isOnFloor.isOnFloorImprove())
 			camera.transform.origin = _headbob(bob_progress)
 			
-			
+			if inputhandler.leftClick:
+				interact()
 	
 	
 func _headbob(time) -> Vector3:
@@ -101,3 +102,6 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * playerAttribute.BOB_FREQUENTY) * playerAttribute.BOB_AMPLITUDE
 	pos.x = cos(time * playerAttribute.BOB_FREQUENTY/2.0) * playerAttribute.BOB_AMPLITUDE
 	return pos
+
+func interact():
+	hand.interact()

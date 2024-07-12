@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bis3avr2iu1k0"]
+[gd_scene load_steps=13 format=3 uid="uid://bis3avr2iu1k0"]
 
 [ext_resource type="Texture2D" uid="uid://cwoq3st6476n2" path="res://editor/assets/Texture/Temporaire/Echiquier.jpeg" id="1_34anw"]
+[ext_resource type="PackedScene" uid="uid://dqhybttvsi2dp" path="res://editor/component/interactible_component.tscn" id="2_kwybw"]
+[ext_resource type="Script" path="res://game/data/script/printTestForInteraction.gd" id="3_h6m00"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jaby8"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -24,6 +26,15 @@ albedo_texture = ExtResource("1_34anw")
 material = SubResource("StandardMaterial3D_os44f")
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mev8t"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5ph0"]
+albedo_color = Color(0.738751, 0, 0.192271, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qbijj"]
+material = SubResource("StandardMaterial3D_n5ph0")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fsk7t"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="lobby" type="Node3D"]
@@ -90,3 +101,20 @@ shape = SubResource("ConcavePolygonShape3D_mev8t")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://game/data/scene/player.tscn")
 spawn_path = NodePath("..")
+
+[node name="bibou" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.876884, 0, 0, 0, 10.0596, 0, 0, 0, 4.91963, -2.39688, -2.06889, 0)
+mesh = SubResource("BoxMesh_qbijj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="bibou"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bibou/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_fsk7t")
+
+[node name="interactibleComponent" parent="bibou" node_paths=PackedStringArray("scriptToExecute") instance=ExtResource("2_kwybw")]
+scriptToExecute = NodePath("addAScriptOnThisNode")
+
+[node name="addAScriptOnThisNode" parent="bibou/interactibleComponent" index="0"]
+script = ExtResource("3_h6m00")
+
+[editable path="bibou/interactibleComponent"]

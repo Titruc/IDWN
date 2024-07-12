@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqhybttvsi2dp"]
+
+[ext_resource type="Script" path="res://game/data/script/component/interactibleComponent.gd" id="1_ikyho"]
+
+[node name="interactibleComponent" type="Node3D"]
+script = ExtResource("1_ikyho")
+
+[node name="addAScriptOnThisNode" type="Node" parent="."]
