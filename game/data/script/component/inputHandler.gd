@@ -20,7 +20,7 @@ func _gather():
 		direction = Input.get_vector("left", "right", "up", "down")
 func _process(delta):
 	if Input.is_action_just_pressed("jump"):
-		print("jump : " , Input.is_action_just_pressed("jump"))
+		print("jump : " , Input.is_action_just_pressed("jump"), asJump)
 	if not is_multiplayer_authority():
 		return
 	if get_parent().name == "1":
