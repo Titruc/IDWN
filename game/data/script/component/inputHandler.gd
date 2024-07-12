@@ -12,8 +12,15 @@ func _ready():
 func _gather():
 	if not is_multiplayer_authority():
 		return
-	asJump = Input.is_action_just_pressed("jump")
-	isSprinting = Input.is_action_pressed("sprint")
-	direction = Input.get_vector("left", "right", "up", "down")
-
+	if get_parent().name != "1":
+		asJump = Input.is_action_just_pressed("jump")
+		isSprinting = Input.is_action_pressed("sprint")
+		direction = Input.get_vector("left", "right", "up", "down")
+func _process(delta):
+	if not is_multiplayer_authority():
+		return
+	if get_parent().name == "1":
+		asJump = Input.is_action_just_pressed("jump")
+		isSprinting = Input.is_action_pressed("sprint")
+		direction = Input.get_vector("left", "right", "up", "down")
 	
