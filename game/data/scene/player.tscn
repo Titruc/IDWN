@@ -33,11 +33,12 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor")]
 script = ExtResource("1_d2vbu")
 playerAttribute = SubResource("Resource_04fj1")
 velocityHandler = NodePath("velocityComponent")
 inputhandler = NodePath("inputHandler")
+isOnFloor = NodePath("isOnFloorComponent")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_u3t1x")
