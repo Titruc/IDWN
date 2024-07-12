@@ -16,6 +16,7 @@ func _on_host_pressed():
 	peer.create_server(9999, 6)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_addPlayer)
+	multiplayer.peer_connected.disconnect(_removePlayer)
 	menu.hide()
 	upnp = upnp_config(9999)
 	_addPlayer()
@@ -89,8 +90,11 @@ func close_upnp(upnp : UPNP, port : int):
 	upnp.delete_port_mapping(port,"UDP")
 	upnp.delete_port_mapping(port,"TCP")
 
-			
-
+func _removePlayer(id):
+	print("remove")
+	var player = lobbyScene.get_node(str(id))
+	if player:
+		lobbyScene.call_deferred("remove_child", player)
 
 func _on_get_code_pressed():
 	code.text = get_secure_code()

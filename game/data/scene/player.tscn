@@ -45,6 +45,7 @@ mesh = SubResource("CapsuleMesh_u3t1x")
 shape = SubResource("ConvexPolygonShape3D_0wadm")
 
 [node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57714, 0)
 
 [node name="playerCamera" type="Camera3D" parent="head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.610856, 0.0914609)
