@@ -20,9 +20,11 @@ var bob_progress : float = 0.0
 
 func _ready():
 	set_multiplayer_authority(name.to_int())
+	inputhandler.set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		camera.make_current()
+	$RollbackSynchronizer.process_settings()
 	
 func _unhandled_input(event):
 	
@@ -35,6 +37,7 @@ func _unhandled_input(event):
 
 func _rollback_tick(delta, tick, is_fresh):
 	if is_multiplayer_authority():
+		_force_update_is_on_floor()
 		velocityHandler.setCurrentVelocity(velocity)
 		if isAbleToMove:
 			if not is_on_floor():
@@ -58,9 +61,16 @@ func _rollback_tick(delta, tick, is_fresh):
 			else:
 				velocityHandler.setVelocityXZ(Vector2(0, 0))
 			velocity = velocityHandler.getFinalVelocity()
-	
-	move_and_slide()
+			velocity *= NetworkTime.physics_factor
+			move_and_slide()
+			velocity /= NetworkTime.physics_factor
 			
+func _force_update_is_on_floor():
+	var old_velocity = velocity
+	velocity = Vector3.ZERO
+	move_and_slide()
+	velocity = old_velocity
+
 func _process(delta):
 	# Add the gravity.
 	if is_multiplayer_authority():
