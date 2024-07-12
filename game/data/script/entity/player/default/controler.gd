@@ -15,6 +15,7 @@ var bob_progress : float = 0.0
 @onready var camera : Camera3D = $head/playerCamera
 @export var velocityHandler : velocityComponent
 @export var inputhandler : inputHandler
+@export var isOnFloor : isOneFloorComponent
 
 
 
@@ -42,13 +43,13 @@ func _rollback_tick(delta, tick, is_fresh):
 
 		if isAbleToMove:
 			_force_update_is_on_floor()
-			if not is_on_floor():
+			if not isOnFloor.isOnFloorImprove():
 				velocityHandler.applyGravity(playerAttribute.GRAVITY, delta)
 			_force_update_is_on_floor()
 			# Handle Jump.
 			if inputhandler.asJump :
-				print("as jump ! ", is_on_floor())
-				if is_on_floor():
+				print("as jump ! ", isOnFloor.isOnFloorImprove())
+				if isOnFloor.isOnFloorImprove():
 					print("jump rn !")
 					velocityHandler.setVelocityY(playerAttribute.JUMP_VELOCITY)
 
@@ -89,7 +90,7 @@ func _process(delta):
 				
 			#handle direction
 			#head bobing
-			bob_progress += delta * velocity.length() * float(is_on_floor())
+			bob_progress += delta * velocity.length() * float(isOnFloor.isOnFloorImprove())
 			camera.transform.origin = _headbob(bob_progress)
 			
 			

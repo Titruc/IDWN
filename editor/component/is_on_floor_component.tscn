@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://3ogpjn5r5wfk"]
+
+[ext_resource type="Script" path="res://game/data/script/component/isOnFloorComponent.gd" id="1_1f236"]
+
+[node name="isOnFloorComponent" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.760665, 0)
+script = ExtResource("1_1f236")
+
+[node name="floorDetection" type="RayCast3D" parent="."]
+target_position = Vector3(0, -0.57, 0)
