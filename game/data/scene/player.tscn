@@ -78,4 +78,4 @@ properties = Array[String]([":global_transform", ":velocity"])
 
 [node name="isOnFloorComponent" parent="." node_paths=PackedStringArray("NodeToCheck") instance=ExtResource("7_v32cn")]
 NodeToCheck = NodePath("..")
-lenght = 0.1
+lenght = 0.2

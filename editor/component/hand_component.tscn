@@ -6,5 +6,4 @@
 script = ExtResource("1_xgw0u")
 
 [node name="hand" type="RayCast3D" parent="."]
-exclude_parent = false
 target_position = Vector3(1, 0, 0)
