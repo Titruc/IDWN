@@ -20,7 +20,4 @@ func _gather():
 	direction = Input.get_vector("left", "right", "up", "down")
 	leftClick = Input.is_action_pressed("left_click")
 	print("has been gather : ", asJump)
-	
-func _process(delta):
-	pass
-	
+
