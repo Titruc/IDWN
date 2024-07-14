@@ -42,10 +42,8 @@ func _rollback_tick(delta, tick, is_fresh):
 		velocityHandler.setCurrentVelocity(velocity)
 
 		if isAbleToMove:
-			_force_update_is_on_floor()
 			if not isOnFloor.isOnFloorImprove():
 				velocityHandler.applyGravity(playerAttribute.GRAVITY, delta)
-			_force_update_is_on_floor()
 			# Handle Jump.
 			if inputhandler.asJump :
 				print("as jump ! ", isOnFloor.isOnFloorImprove())
