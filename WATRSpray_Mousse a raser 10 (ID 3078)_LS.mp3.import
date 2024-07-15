@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cupjew6di0r3"
+path="res://.godot/imported/WATRSpray_Mousse a raser 10 (ID 3078)_LS.mp3-0dce7c97ab63a0f1192b5bec24f7e46f.mp3str"
+
+[deps]
+
+source_file="res://WATRSpray_Mousse a raser 10 (ID 3078)_LS.mp3"
+dest_files=["res://.godot/imported/WATRSpray_Mousse a raser 10 (ID 3078)_LS.mp3-0dce7c97ab63a0f1192b5bec24f7e46f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

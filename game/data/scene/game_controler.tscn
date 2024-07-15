@@ -99,6 +99,8 @@ offset_right = 301.0
 offset_bottom = 123.0
 text = "close game"
 
+[node name="Node" type="Node" parent="."]
+
 [connection signal="pressed" from="ui/multiplayerMenue/host" to="multiplayerControler" method="_on_host_pressed"]
 [connection signal="pressed" from="ui/multiplayerMenue/join" to="multiplayerControler" method="_on_join_pressed"]
 [connection signal="pressed" from="ui/multiplayerMenue/getCode" to="multiplayerControler" method="_on_get_code_pressed"]

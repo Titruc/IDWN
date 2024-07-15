@@ -17,6 +17,11 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://game/assets/UI/logo/lechantreEntertainement.png"
 boot_splash/minimum_display_time=3000
 
+[audio]
+
+driver/enable_input=true
+driver/mix_rate=0
+
 [autoload]
 
 NetworkTime="*res://addons/netfox/network-time.gd"
