@@ -22,11 +22,11 @@ var bob_progress : float = 0.0
 
 func _ready():
 	set_multiplayer_authority(name.to_int())
-	voiceChatSetup(name.to_int())
 	inputhandler.set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		camera.make_current()
+		voiceChatSetup(name.to_int())
 	$RollbackSynchronizer.process_settings()
 	
 	
