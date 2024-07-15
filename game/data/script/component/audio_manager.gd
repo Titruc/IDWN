@@ -5,7 +5,7 @@ var effect : AudioEffectCapture
 var playback : AudioStreamGeneratorPlayback
 @export var nodePath : NodePath
 var inputBreshold = 0.005
-@export var id : int = 0
+@export var id : int
 var isInitiate : bool = false
 var recieveBuffer : PackedFloat32Array = PackedFloat32Array()
 
@@ -27,12 +27,12 @@ func audioSetup(id : int):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	print(id)
 	if isInitiate:
 		if is_multiplayer_authority():
 			processMic()
-		processVoice()
-	else:
-		audioSetup(id)
+		processVoice(id)
+	
 		
 	
 		
@@ -58,7 +58,7 @@ func sendData(data : PackedFloat32Array):
 	recieveBuffer.append_array(data)
 	
 
-func processVoice():
+func processVoice(id):
 	if recieveBuffer.size() <= 0:
 		return
 	for i in range(min(playback.get_frames_available(),recieveBuffer.size())):

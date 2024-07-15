@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dwxc0nojql6tp"]
+[gd_scene load_steps=15 format=3 uid="uid://dwxc0nojql6tp"]
 
 [ext_resource type="Script" path="res://game/data/script/entity/player/default/controler.gd" id="1_d2vbu"]
 [ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="5_ceukn"]
 [ext_resource type="Script" path="res://addons/netfox/tick-interpolator.gd" id="6_lx473"]
 [ext_resource type="PackedScene" uid="uid://3ogpjn5r5wfk" path="res://editor/component/is_on_floor_component.tscn" id="7_v32cn"]
+[ext_resource type="PackedScene" uid="uid://dkf6u6ivepv00" path="res://editor/component/audio_manager.tscn" id="9_brwus"]
 
 [sub_resource type="Resource" id="Resource_04fj1"]
 script = ExtResource("2_mss32")
@@ -34,13 +35,17 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand")]
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_oe2g4"]
+mix_rate = 48000.0
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand", "voiceManager")]
 script = ExtResource("1_d2vbu")
 playerAttribute = SubResource("Resource_04fj1")
 velocityHandler = NodePath("velocityComponent")
 inputhandler = NodePath("inputHandler")
 isOnFloor = NodePath("isOnFloorComponent")
 hand = NodePath("head/playerCamera/handComponent")
+voiceManager = NodePath("audioManager")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_u3t1x")
@@ -79,3 +84,11 @@ properties = Array[String]([":global_transform", ":velocity"])
 [node name="isOnFloorComponent" parent="." node_paths=PackedStringArray("NodeToCheck") instance=ExtResource("7_v32cn")]
 NodeToCheck = NodePath("..")
 lenght = 0.2
+
+[node name="audioManager" parent="." instance=ExtResource("9_brwus")]
+nodePath = NodePath("AudioStreamPlayer3D")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="audioManager"]
+stream = SubResource("AudioStreamGenerator_oe2g4")
+volume_db = 32.0
+autoplay = true

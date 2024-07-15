@@ -17,6 +17,7 @@ var bob_progress : float = 0.0
 @export var inputhandler : inputHandler
 @export var isOnFloor : isOneFloorComponent
 @export var hand : handComponent
+@export var voiceManager : Node
 
 
 func _ready():
@@ -25,7 +26,9 @@ func _ready():
 	if is_multiplayer_authority():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		camera.make_current()
+		voiceChatSetup(name.to_int())
 	$RollbackSynchronizer.process_settings()
+	
 	
 func _unhandled_input(event):
 	
@@ -77,6 +80,10 @@ func _force_update_is_on_floor():
 	move_and_slide()
 	velocity = old_velocity
 
+func voiceChatSetup(id):
+		voiceManager.id = id
+		voiceManager.audioSetup(id)
+	
 func _process(delta):
 	# Add the gravity.
 	if is_multiplayer_authority():
