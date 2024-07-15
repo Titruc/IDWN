@@ -10,7 +10,6 @@ var isInitiate : bool = false
 var recieveBuffer : PackedFloat32Array = PackedFloat32Array()
 
 func audioSetup(id : int):
-	print("haaaa")
 	set_multiplayer_authority(id)
 	#if is_multiplayer_authority():
 	input = $input
@@ -27,7 +26,6 @@ func audioSetup(id : int):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print(id)
 	if isInitiate:
 		if is_multiplayer_authority():
 			processMic()
@@ -51,10 +49,11 @@ func processMic():
 		if maxAmplitude < inputBreshold:
 			return
 		
-		sendData.rpc(data)
+		sendData.rpc(data,id)
 
 @rpc("any_peer","call_remote","unreliable_ordered")
-func sendData(data : PackedFloat32Array):
+func sendData(data : PackedFloat32Array,id):
+	print(recieveBuffer.size(), id)
 	recieveBuffer.append_array(data)
 	
 
