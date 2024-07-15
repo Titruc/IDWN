@@ -9,7 +9,6 @@ buffer_length = 0.05
 [node name="character" type="Node2D"]
 
 [node name="audioManager" parent="." instance=ExtResource("1_fm725")]
-nodePath = NodePath("../AudioStreamPlayer2D")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamGenerator_05sv3")

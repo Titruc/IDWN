@@ -86,9 +86,11 @@ NodeToCheck = NodePath("..")
 lenght = 0.2
 
 [node name="audioManager" parent="." instance=ExtResource("9_brwus")]
-nodePath = NodePath("AudioStreamPlayer3D")
+outputPath = NodePath("AudioStreamPlayer3D")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="audioManager"]
 stream = SubResource("AudioStreamGenerator_oe2g4")
 volume_db = 32.0
 autoplay = true
+
+[editable path="audioManager"]

@@ -1,68 +1,68 @@
 extends Node
-@onready var input : AudioStreamPlayer
+
+@onready var input : AudioStreamPlayer 
 var index : int
 var effect : AudioEffectCapture
 var playback : AudioStreamGeneratorPlayback
-@export var nodePath : NodePath
-var inputBreshold = 0.005
-@export var id : int
-var isInitiate : bool = false
-var recieveBuffer : PackedFloat32Array = PackedFloat32Array()
+@export var outputPath : NodePath
+var inputThreshold = 0.005
+var receiveBuffer := PackedFloat32Array()
+var isReady : bool = false
+@export var id_autority : int
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
 
-func audioSetup(id : int):
-	set_multiplayer_authority(id)
-	#if is_multiplayer_authority():
+func setupAudio(id):
 	input = $input
-	input.stream = AudioStreamMicrophone.new()
-	input.play()
-	index = AudioServer.get_bus_index("Record")
-	effect = AudioServer.get_bus_effect(index, 0)
-	
-	var aaa = get_node(nodePath)
-	get_node(nodePath).play()
-	playback = get_node(nodePath).get_stream_playback()
-	isInitiate = true
-	
+	set_multiplayer_authority(id)
+	if is_multiplayer_authority():
+		input.stream = AudioStreamMicrophone.new()
+		input.play()
+		index = AudioServer.get_bus_index("Record")
+		effect = AudioServer.get_bus_effect(index, 0)
+
+	playback = get_node(outputPath).get_stream_playback()
+	isReady = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if isInitiate:
+	if isReady:
 		if is_multiplayer_authority():
 			processMic()
-		processVoice(id)
-	
-		
-	
-		
+		processVoice()
+	else:
+		setupAudio(id_autority)
+
 func processMic():
-	var serialData : PackedVector2Array = effect.get_buffer(effect.get_frames_available())
+	var sterioData : PackedVector2Array = effect.get_buffer(effect.get_frames_available())
 	
-	if serialData.size() > 0:
-		var data = PackedFloat32Array()
-		data.resize(serialData.size())
-		var maxAmplitude = 0.0
+	#if sterioData.size() > 0:
 		
-		for i in range(serialData.size()):
-			var value = (serialData[i].x + serialData[i].y) / 2
-			maxAmplitude = max(value, maxAmplitude)
-			data[i] = value
-		if maxAmplitude < inputBreshold:
-			return
-		
-		sendData.rpc(data,id)
-
-@rpc("any_peer","call_remote","unreliable_ordered")
-func sendData(data : PackedFloat32Array,id):
-	print(recieveBuffer.size(), id)
-	recieveBuffer.append_array(data)
+	var data = PackedFloat32Array()
+	data.resize(sterioData.size())
+	var maxAmplitude := 0.0
 	
-
-func processVoice(id):
-	if recieveBuffer.size() <= 0:
+	for i in range(sterioData.size()):
+		var value = (sterioData[i].x + sterioData[i].y) / 2
+		maxAmplitude = max(value, maxAmplitude)
+		data[i] = value
+	if maxAmplitude < inputThreshold:
 		return
-	for i in range(min(playback.get_frames_available(),recieveBuffer.size())):
-		playback.push_frame(Vector2(recieveBuffer[0],recieveBuffer[0]))
-		recieveBuffer.remove_at(0)
+	sendData.rpc(data)
+		
+
+func processVoice():
+	print(receiveBuffer.size())
+	if receiveBuffer.size() <= 0:
+		return
 	
-	
+	for i in range(min(playback.get_frames_available(), receiveBuffer.size())):
+		playback.push_frame(Vector2(receiveBuffer[0], receiveBuffer[0]))
+		receiveBuffer.remove_at(0)
+		
+
+@rpc("any_peer", "call_remote", "unreliable_ordered")
+func sendData(data : PackedFloat32Array):
+	receiveBuffer.append_array(data)
 	

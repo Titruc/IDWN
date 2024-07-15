@@ -51,9 +51,7 @@ func _rollback_tick(delta, tick, is_fresh):
 			_force_update_is_on_floor()
 			# Handle Jump.
 			if inputhandler.asJump :
-				print("as jump ! ", isOnFloor.isOnFloorImprove())
 				if isOnFloor.isOnFloorImprove():
-					print("jump rn !")
 					velocityHandler.setVelocityY(playerAttribute.JUMP_VELOCITY)
 
 			# Update speed
@@ -81,8 +79,8 @@ func _force_update_is_on_floor():
 	velocity = old_velocity
 
 func voiceChatSetup(id):
-		voiceManager.id = id
-		voiceManager.audioSetup(id)
+		voiceManager.id_autority = id
+		voiceManager.setupAudio(id)
 	
 func _process(delta):
 	# Add the gravity.
