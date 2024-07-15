@@ -51,7 +51,7 @@ func processMic():
 		if maxAmplitude < inputBreshold:
 			return
 		
-		sendData(data)
+		sendData.rpc(data)
 
 @rpc("any_peer","call_remote","unreliable_ordered")
 func sendData(data : PackedFloat32Array):
