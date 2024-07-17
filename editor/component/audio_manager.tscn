@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkf6u6ivepv00"]
+
+[ext_resource type="Script" path="res://game/data/script/component/audio_manager.gd" id="1_072c6"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_lbr6b"]
+
+[node name="audioManager" type="Node"]
+script = ExtResource("1_072c6")
+outputPath = NodePath("input")
+
+[node name="input" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_lbr6b")
+bus = &"Record"

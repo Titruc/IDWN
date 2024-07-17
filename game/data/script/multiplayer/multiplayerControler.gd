@@ -46,17 +46,17 @@ func get_secure_code():
 		else:
 			ipListe.append(int(nbr))
 			nbr = ""
-	var code = ""
+	var codeTemp = ""
 	for i in ipListe:
-		code += possibleCodeCaractere[i]
-		code += possibleCodeCaractere[randi_range(257, 298)]
+		codeTemp += possibleCodeCaractere[i]
+		codeTemp += possibleCodeCaractere[randi_range(257, 298)]
 	
-	return code
+	return codeTemp
 
-func get_ip_from_code(code : String):
+func get_ip_from_code(codePar : String):
 	var ip = ""
-	code = code.substr(0, len(code)-1)
-	for i in code:
+	codePar = codePar.substr(0, len(codePar)-1)
+	for i in codePar:
 		var value = possibleCodeCaractere.find(i)
 		if value < 256:
 			ip += str(value)
@@ -71,26 +71,26 @@ func get_ip_from_code(code : String):
 	
 	
 func upnp_config(port : int):
-	var upnp = UPNP.new()
-	var discover_result = upnp.discover()
+	var upnpTemp = UPNP.new()
+	var discover_result = upnpTemp.discover()
 	
 	if discover_result == UPNP.UPNP_RESULT_SUCCESS:
-		if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
-			var map_result_udp = upnp.add_port_mapping(port,port,"godot-udp","UDP",0)
-			var map_result_tcp = upnp.add_port_mapping(port,port,"godot-tcp","TCP",0)
+		if upnpTemp.get_gateway() and upnpTemp.get_gateway().is_valid_gateway():
+			var map_result_udp = upnpTemp.add_port_mapping(port,port,"godot-udp","UDP",0)
+			var map_result_tcp = upnpTemp.add_port_mapping(port,port,"godot-tcp","TCP",0)
 			
 			if not map_result_udp == UPNP.UPNP_RESULT_SUCCESS:
-				upnp.add_port_mapping(port,port,"","UDP")
+				upnpTemp.add_port_mapping(port,port,"","UDP")
 			if not map_result_tcp == UPNP.UPNP_RESULT_SUCCESS:
-				upnp.add_port_mapping(port,port,"","TCP")
-	return upnp
+				upnpTemp.add_port_mapping(port,port,"","TCP")
+	return upnpTemp
 
-func get_public_ip(upnp : UPNP):
-	return upnp.query_external_address()
+func get_public_ip(upnpPar : UPNP):
+	return upnpPar.query_external_address()
 	
-func close_upnp(upnp : UPNP, port : int):
-	upnp.delete_port_mapping(port,"UDP")
-	upnp.delete_port_mapping(port,"TCP")
+func close_upnp(upnpPar : UPNP, port : int):
+	upnpPar.delete_port_mapping(port,"UDP")
+	upnpPar.delete_port_mapping(port,"TCP")
 
 func _removePlayer(id):
 	print("remove")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk7jyyaxh0c1v"]
+
+[ext_resource type="PackedScene" uid="uid://dkf6u6ivepv00" path="res://editor/component/audio_manager.tscn" id="1_fm725"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_05sv3"]
+mix_rate = 48000.0
+buffer_length = 0.05
+
+[node name="character" type="Node2D"]
+
+[node name="audioManager" parent="." instance=ExtResource("1_fm725")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamGenerator_05sv3")
+volume_db = 24.0
+autoplay = true
