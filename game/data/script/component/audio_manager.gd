@@ -40,20 +40,20 @@ func _process(_delta):
 func processMic():
 	var sterioData : PackedVector2Array = effect.get_buffer(effect.get_frames_available())
 	
-	#if sterioData.size() > 0:
+	if sterioData.size() > 0:
+			
+		var data = PackedFloat32Array()
+		data.resize(sterioData.size())
+		var maxAmplitude := 0.0
 		
-	var data = PackedFloat32Array()
-	data.resize(sterioData.size())
-	var maxAmplitude := 0.0
-	
-	for i in range(sterioData.size()):
-		var value = (sterioData[i].x + sterioData[i].y) / 2
-		maxAmplitude = max(value, maxAmplitude)
-		data[i] = value
-	if maxAmplitude < inputThreshold:
-		return
-	sendData.rpc(compressByteArray(floatArrayToByteArray(data)), floatArrayToByteArray(data).size() * 4)
-		
+		for i in range(sterioData.size()):
+			var value = (sterioData[i].x + sterioData[i].y) / 2
+			maxAmplitude = max(value, maxAmplitude)
+			data[i] = value
+		if maxAmplitude < inputThreshold:
+			return
+		sendData.rpc(compressByteArray(floatArrayToByteArray(data)), floatArrayToByteArray(data).size() * 4)
+			
 
 func processVoice():
 	
