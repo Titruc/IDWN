@@ -1,0 +1,96 @@
+[gd_scene load_steps=15 format=3 uid="uid://dwxc0nojql6tp"]
+
+[ext_resource type="Script" path="res://game/data/script/entity/player/default/controler.gd" id="1_d2vbu"]
+[ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
+[ext_resource type="Script" path="res://game/data/script/ressources/player/playerAttribute.gd" id="2_mss32"]
+[ext_resource type="PackedScene" uid="uid://cr7mw00e22s6r" path="res://editor/component/hand_component.tscn" id="3_2bvbn"]
+[ext_resource type="PackedScene" uid="uid://bptq7ti2b10tu" path="res://editor/component/input_handler.tscn" id="4_7n2wk"]
+[ext_resource type="Script" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="5_ceukn"]
+[ext_resource type="Script" path="res://addons/netfox/tick-interpolator.gd" id="6_lx473"]
+[ext_resource type="PackedScene" uid="uid://3ogpjn5r5wfk" path="res://editor/component/is_on_floor_component.tscn" id="7_v32cn"]
+[ext_resource type="PackedScene" uid="uid://dkf6u6ivepv00" path="res://editor/component/audio_manager.tscn" id="9_brwus"]
+
+[sub_resource type="Resource" id="Resource_qwne1"]
+script = ExtResource("2_mss32")
+WALK_SPEED = 5.0
+SPRINT_SPEED = 7.5
+SPEED_VARIATION = 0.5
+JUMP_VELOCITY = 4.5
+SENSITIVITY = 0.005
+FOV = 75
+FOV_VARIATION = 20.0
+BOB_FREQUENTY = 2.0
+BOB_AMPLITUDE = 0.06
+GRAVITY = 9.81
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_u3t1x"]
+radius = 0.15
+height = 1.6
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0wadm"]
+points = PackedVector3Array(0.142026, 0.685575, 0.116624, -0.162698, -0.711031, -0.0610912, -0.137264, -0.711031, -0.111862, -0.162698, 0.711031, -0.0610912, 0.116624, 0.711031, -0.137264, 0.16746, -0.711031, -0.0356894, -0.0610912, -0.685575, 0.16746, -0.137264, 0.711031, 0.116624, 0.0658531, -0.711031, -0.162698, -0.0610912, 0.711031, -0.162698, 0.116624, -0.685575, 0.142026, 0.0404513, 0.711031, 0.16746, -0.162698, -0.711031, 0.0658531, 0.16746, 0.685575, -0.0610912, 0.16746, -0.685575, 0.0658531, 0.0625551, -0.770471, 0.0625551, 0.0627165, 0.772537, -0.0579546, -0.0610912, -0.711031, -0.162698, 0.142026, -0.685575, -0.111862, -0.0610912, 0.685575, 0.16746, 0.0658531, 0.711031, -0.162698, -0.162698, 0.711031, 0.0658531, 0.0658531, -0.685575, 0.16746, -0.111862, 0.711031, -0.137264, 0.16746, 0.685575, 0.0658531, -0.111862, -0.685575, 0.142026, -0.058134, -0.774834, -0.058134, -0.057957, 0.772568, 0.0627189, 0.116624, 0.685575, 0.142026, 0.142026, 0.736488, 0.0912549, -0.0579546, -0.772537, 0.0627165, 0.0627189, -0.772568, -0.057957)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_oqbdd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_oe2g4"]
+mix_rate = 48000.0
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand", "voiceManager")]
+script = ExtResource("1_d2vbu")
+playerAttributeVar = SubResource("Resource_qwne1")
+velocityHandler = NodePath("velocityComponent")
+inputhandler = NodePath("inputHandler")
+isOnFloor = NodePath("isOnFloorComponent")
+hand = NodePath("head/playerCamera/handComponent")
+voiceManager = NodePath("audioManager")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_u3t1x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_0wadm")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57714, 0)
+
+[node name="playerCamera" type="Camera3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.610856, 0.0914609)
+
+[node name="handComponent" parent="head/playerCamera" instance=ExtResource("3_2bvbn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.091)
+handLenght = Vector3(0, 0, 300)
+
+[node name="velocityComponent" parent="." instance=ExtResource("2_ler7n")]
+
+[node name="inputHandler" parent="." instance=ExtResource("4_7n2wk")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_oqbdd")
+
+[node name="RollbackSynchronizer" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("5_ceukn")
+root = NodePath("..")
+state_properties = Array[String]([":global_transform", ":velocity"])
+input_properties = Array[String](["inputHandler:asJump", "inputHandler:isSprinting", "inputHandler:direction"])
+
+[node name="TickInterpolator" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("6_lx473")
+root = NodePath("..")
+properties = Array[String]([":global_transform", ":velocity"])
+
+[node name="isOnFloorComponent" parent="." node_paths=PackedStringArray("NodeToCheck") instance=ExtResource("7_v32cn")]
+NodeToCheck = NodePath("..")
+lenght = 0.2
+
+[node name="audioManager" parent="." instance=ExtResource("9_brwus")]
+outputPath = NodePath("AudioStreamPlayer3D")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="audioManager"]
+stream = SubResource("AudioStreamGenerator_oe2g4")
+volume_db = 32.0
+autoplay = true
+
+[editable path="audioManager"]

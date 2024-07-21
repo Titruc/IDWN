@@ -6,9 +6,11 @@ var effect : AudioEffectCapture
 var playback : AudioStreamGeneratorPlayback
 @export var outputPath : NodePath
 var inputThreshold = 0.005
-var receiveBuffer := PackedFloat32Array()
+var receiveBuffer := PackedByteArray()
 var isReady : bool = false
 @export var id_autority : int
+var bufferSize : int = 0
+var audioBuffer : PackedFloat32Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -49,20 +51,36 @@ func processMic():
 		data[i] = value
 	if maxAmplitude < inputThreshold:
 		return
-	sendData.rpc(data)
+	sendData.rpc(compressByteArray(floatArrayToByteArray(data)), floatArrayToByteArray(data).size() * 4)
 		
 
 func processVoice():
-	print(receiveBuffer.size())
+	
 	if receiveBuffer.size() <= 0:
 		return
-	
-	for i in range(min(playback.get_frames_available(), receiveBuffer.size())):
-		playback.push_frame(Vector2(receiveBuffer[0], receiveBuffer[0]))
-		receiveBuffer.remove_at(0)
+	audioBuffer.append_array(byteArrayToFloatArray(decompressByteArray(receiveBuffer,bufferSize)))
+	receiveBuffer.clear()
+	print(id_autority, " " ,audioBuffer.size())
+	for i in range(min(playback.get_frames_available(), audioBuffer.size())):
+		playback.push_frame(Vector2(audioBuffer[0], audioBuffer[0]))
+		audioBuffer.remove_at(0)
 		
-
 @rpc("any_peer", "call_remote", "unreliable_ordered")
-func sendData(data : PackedFloat32Array):
+func sendData(data : PackedByteArray, size : int):
 	receiveBuffer.append_array(data)
+	bufferSize = size
 	
+
+func floatArrayToByteArray(array : PackedFloat32Array):
+	return array.to_byte_array()
+
+func byteArrayToFloatArray(array : PackedByteArray):
+	return array.to_float32_array()
+	
+func compressByteArray(array : PackedByteArray):
+	return array.compress(2)
+	
+func decompressByteArray(array : PackedByteArray, size : int):
+	if array.size() > 0:
+		return array.decompress(size, 2)
+	return PackedByteArray()
