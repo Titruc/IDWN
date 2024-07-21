@@ -11,6 +11,7 @@ var isReady : bool = false
 @export var id_autority : int
 var bufferSize : int = 0
 var audioBuffer : PackedFloat32Array
+@export var compressionMode : int = 2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -78,9 +79,9 @@ func byteArrayToFloatArray(array : PackedByteArray):
 	return array.to_float32_array()
 	
 func compressByteArray(array : PackedByteArray):
-	return array.compress(2)
+	return array.compress(compressionMode)
 	
 func decompressByteArray(array : PackedByteArray, size : int):
 	if array.size() > 0:
-		return array.decompress(size, 2)
+		return array.decompress(size, compressionMode)
 	return PackedByteArray()
