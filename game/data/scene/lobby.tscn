@@ -4,18 +4,19 @@
 [ext_resource type="PackedScene" uid="uid://dqhybttvsi2dp" path="res://editor/component/interactible_component.tscn" id="2_kwybw"]
 [ext_resource type="Script" path="res://game/data/script/printTestForInteraction.gd" id="3_h6m00"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jaby8"]
-sky_top_color = Color(1, 1, 1, 1)
-sky_horizon_color = Color(0.884245, 0.91147, 0.950475, 1)
-ground_bottom_color = Color(0.536982, 0.645879, 0.8019, 1)
-ground_horizon_color = Color(0.884245, 0.91147, 0.950475, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eb14q"]
+sky_top_color = Color(0.266575, 0.266575, 0.266575, 1)
+sky_horizon_color = Color(0.566644, 0.566644, 0.566644, 1)
+sky_energy_multiplier = 0.0
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.566644, 0.566644, 0.566644, 1)
 
-[sub_resource type="Sky" id="Sky_yh35b"]
-sky_material = SubResource("ProceduralSkyMaterial_jaby8")
+[sub_resource type="Sky" id="Sky_24nma"]
+sky_material = SubResource("ProceduralSkyMaterial_eb14q")
 
-[sub_resource type="Environment" id="Environment_ucj15"]
+[sub_resource type="Environment" id="Environment_kuyuk"]
 background_mode = 2
-sky = SubResource("Sky_yh35b")
+sky = SubResource("Sky_24nma")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -39,12 +40,14 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [node name="lobby" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.894154, -0.445916, 0.0405816, 0, 0.0906326, 0.995884, -0.447759, 0.890474, -0.0810395, 0, 0, 0)
-shadow_enabled = true
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ucj15")
+environment = SubResource("Environment_kuyuk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.937282, 0.348572, -1.52366e-08, 0, -4.37114e-08, -1, -0.348572, -0.937282, 4.09699e-08, 0, 0, 0)
+light_color = Color(0, 0, 0, 1)
+light_energy = 0.0
+shadow_enabled = true
 
 [node name="temps" type="Node3D" parent="."]
 
