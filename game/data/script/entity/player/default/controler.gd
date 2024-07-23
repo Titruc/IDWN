@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+
 #const for move
 @export var playerAttributeVar : playerAttribute
 
@@ -18,12 +19,15 @@ var bob_progress : float = 0.0
 @export var isOnFloor : isOneFloorComponent
 @export var hand : handComponent
 @export var voiceManager : Node
+@export var animationHandler : animationHandler
+@export var model : Node3D
 
 
 func _ready():
 	set_multiplayer_authority(name.to_int())
 	inputhandler.set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
+		model.hide()
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		camera.make_current()
 		voiceChatSetup(name.to_int())
@@ -58,15 +62,16 @@ func _rollback_tick(delta, _tick, _is_fresh):
 			speed = lerp(speed, 
 						playerAttributeVar.SPRINT_SPEED if inputhandler.isSprinting else playerAttributeVar.WALK_SPEED, 
 						playerAttributeVar.SPEED_VARIATION)
-
 			var input_dir = inputhandler.direction
 			var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 			if direction:
 				velocityHandler.setVelocityXZ(Vector2(direction.x * speed, direction.z * speed))
+				animationHandler.playAnimation(getNearestVector(inputhandler.direction))
 			else:
 				velocityHandler.setVelocityXZ(Vector2(0, 0))
-
+				animationHandler.playAnimation("idle")
+			
 	velocity = velocityHandler.getFinalVelocity()
 	velocity *= NetworkTime.physics_factor
 	move_and_slide()
@@ -79,8 +84,9 @@ func _force_update_is_on_floor():
 	velocity = old_velocity
 
 func voiceChatSetup(id):
-		voiceManager.id_autority = id
-		voiceManager.setupAudio(id)
+	pass
+	#voiceManager.id_autority = id
+	#voiceManager.setupAudio(id)
 	
 func _process(delta):
 	# Add the gravity.
@@ -100,7 +106,8 @@ func _process(delta):
 			
 			if inputhandler.leftClick:
 				interact()
-	
+			model.rotation = (head.rotation - Vector3(0,PI,0))
+			
 	
 func _headbob(time) -> Vector3:
 	var pos : Vector3 = Vector3.ZERO
@@ -110,3 +117,15 @@ func _headbob(time) -> Vector3:
 
 func interact():
 	hand.interact()
+
+func getNearestVector(dir : Vector2):
+	var angles = rad_to_deg(Vector2(0,-1).angle_to(dir))
+	print(angles)
+	if angles <= 30 and angles >= -30:
+		return "walk forward"
+	elif angles > 91 and angles <= 181 or angles < -91 and angles >= -181:
+		return "walk backward"
+	elif angles <= 91 and angles > 30:
+		return "walk right"
+	elif angles >= -91 and angles < -30:
+		return "walk left"

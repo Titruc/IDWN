@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dwxc0nojql6tp"]
+[gd_scene load_steps=16 format=3 uid="uid://dwxc0nojql6tp"]
 
 [ext_resource type="Script" path="res://game/data/script/entity/player/default/controler.gd" id="1_d2vbu"]
 [ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
@@ -9,6 +9,9 @@
 [ext_resource type="Script" path="res://addons/netfox/tick-interpolator.gd" id="6_lx473"]
 [ext_resource type="PackedScene" uid="uid://3ogpjn5r5wfk" path="res://editor/component/is_on_floor_component.tscn" id="7_v32cn"]
 [ext_resource type="PackedScene" uid="uid://dkf6u6ivepv00" path="res://editor/component/audio_manager.tscn" id="9_brwus"]
+[ext_resource type="AudioStream" uid="uid://bexepmloj7f04" path="res://editor/component/new_audio_stream_voip.tres" id="10_08kor"]
+[ext_resource type="PackedScene" uid="uid://bqch4ebe5ekvs" path="res://game/assets/model/player/personnage.glb" id="11_kpor2"]
+[ext_resource type="PackedScene" uid="uid://clqs8mex8rtj7" path="res://editor/component/animation_handler.tscn" id="12_t7u18"]
 
 [sub_resource type="Resource" id="Resource_qwne1"]
 script = ExtResource("2_mss32")
@@ -23,10 +26,6 @@ BOB_FREQUENTY = 2.0
 BOB_AMPLITUDE = 0.06
 GRAVITY = 9.81
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_u3t1x"]
-radius = 0.15
-height = 1.6
-
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0wadm"]
 points = PackedVector3Array(0.142026, 0.685575, 0.116624, -0.162698, -0.711031, -0.0610912, -0.137264, -0.711031, -0.111862, -0.162698, 0.711031, -0.0610912, 0.116624, 0.711031, -0.137264, 0.16746, -0.711031, -0.0356894, -0.0610912, -0.685575, 0.16746, -0.137264, 0.711031, 0.116624, 0.0658531, -0.711031, -0.162698, -0.0610912, 0.711031, -0.162698, 0.116624, -0.685575, 0.142026, 0.0404513, 0.711031, 0.16746, -0.162698, -0.711031, 0.0658531, 0.16746, 0.685575, -0.0610912, 0.16746, -0.685575, 0.0658531, 0.0625551, -0.770471, 0.0625551, 0.0627165, 0.772537, -0.0579546, -0.0610912, -0.711031, -0.162698, 0.142026, -0.685575, -0.111862, -0.0610912, 0.685575, 0.16746, 0.0658531, 0.711031, -0.162698, -0.162698, 0.711031, 0.0658531, 0.0658531, -0.685575, 0.16746, -0.111862, 0.711031, -0.137264, 0.16746, 0.685575, 0.0658531, -0.111862, -0.685575, 0.142026, -0.058134, -0.774834, -0.058134, -0.057957, 0.772568, 0.0627189, 0.116624, 0.685575, 0.142026, 0.142026, 0.736488, 0.0912549, -0.0579546, -0.772537, 0.0627165, 0.0627189, -0.772568, -0.057957)
 
@@ -34,11 +33,14 @@ points = PackedVector3Array(0.142026, 0.685575, 0.116624, -0.162698, -0.711031, 
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("personnage:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("personnage/AnimationPlayer:current_animation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_oe2g4"]
-mix_rate = 48000.0
-
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand", "voiceManager")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand", "voiceManager", "animationHandler", "model")]
 script = ExtResource("1_d2vbu")
 playerAttributeVar = SubResource("Resource_qwne1")
 velocityHandler = NodePath("velocityComponent")
@@ -46,9 +48,8 @@ inputhandler = NodePath("inputHandler")
 isOnFloor = NodePath("isOnFloorComponent")
 hand = NodePath("head/playerCamera/handComponent")
 voiceManager = NodePath("audioManager")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_u3t1x")
+animationHandler = NodePath("animationHandler")
+model = NodePath("personnage")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_0wadm")
@@ -86,11 +87,60 @@ NodeToCheck = NodePath("..")
 lenght = 0.2
 
 [node name="audioManager" parent="." instance=ExtResource("9_brwus")]
-outputPath = NodePath("AudioStreamPlayer3D")
+script = null
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="audioManager"]
-stream = SubResource("AudioStreamGenerator_oe2g4")
-volume_db = 32.0
+stream = ExtResource("10_08kor")
 autoplay = true
 
+[node name="personnage" parent="." instance=ExtResource("11_kpor2")]
+transform = Transform3D(-3.90632e-08, 0, 0.893661, 0, 0.893661, 0, -0.893661, 0, -3.90632e-08, 0, -0.8, 0)
+
+[node name="Skeleton3D" parent="personnage/Armature" index="0"]
+bones/0/position = Vector3(-0.310651, 0.768683, -3.91223e-07)
+bones/2/position = Vector3(0.351303, 0.768688, -1.14458e-07)
+bones/8/position = Vector3(-0.0093215, 0.782716, -0.142724)
+bones/9/rotation = Quaternion(-0.0236536, -0.000572184, -0.000572185, 0.99972)
+bones/10/position = Vector3(0.0151572, -0.0184903, 0.142459)
+bones/12/rotation = Quaternion(0.97135, -0.162381, 0.115254, 0.129725)
+bones/12/scale = Vector3(1.00002, 1, 1)
+bones/13/rotation = Quaternion(0.256852, 2.95027e-08, 1.15033e-07, 0.966451)
+bones/15/rotation = Quaternion(0.972327, 0.154307, -0.116614, 0.13104)
+bones/15/scale = Vector3(1.00002, 1, 1)
+bones/16/rotation = Quaternion(0.256852, -2.95743e-08, -1.15467e-07, 0.966451)
+bones/17/rotation = Quaternion(0.128672, 0.000488889, 0.00048889, 0.991687)
+bones/19/rotation = Quaternion(-0.0823156, -0.375987, 0.922111, 0.0396235)
+bones/20/rotation = Quaternion(0.00259762, 0.000243958, -0.363979, 0.931403)
+bones/22/rotation = Quaternion(-0.359744, -0.0323806, -0.035978, 0.931795)
+bones/23/rotation = Quaternion(-0.31216, 0.00637668, 0.00158853, 0.950007)
+bones/24/rotation = Quaternion(-0.296684, -0.025145, -0.25486, 0.919996)
+bones/25/rotation = Quaternion(-0.151069, 0.000735191, 0.235243, 0.960124)
+bones/26/rotation = Quaternion(-0.261296, -0.439341, -0.439341, 0.738704)
+bones/27/rotation = Quaternion(0.0940922, -0.403181, 0.908969, -0.0486596)
+bones/28/rotation = Quaternion(0.00275364, -0.000241551, 0.385957, 0.922513)
+bones/30/rotation = Quaternion(-0.399673, 0.060292, -0.0520595, 0.91319)
+bones/31/rotation = Quaternion(-0.34801, 0.0277848, -0.0894623, 0.932799)
+bones/32/rotation = Quaternion(-0.249468, 0.0157277, 0.133872, 0.958956)
+bones/33/rotation = Quaternion(-0.0928168, -0.0187237, -0.353123, 0.930773)
+
+[node name="animationHandler" parent="." node_paths=PackedStringArray("model", "animationPlayer") instance=ExtResource("12_t7u18")]
+model = NodePath("../personnage")
+animationPlayer = NodePath("../personnage/AnimationPlayer")
+action = {
+"crouch": "crouch",
+"crouch walk backward": "crouch walk backward",
+"crouch walk forward": "crouch walk forward",
+"crouch walk left": "crouch walk left",
+"crouch walk right": "crouch walk right",
+"hold gun": "hold gun",
+"idle": "idle",
+"throwing arms around": "throwing arms around",
+"truning head": "truning head",
+"walk backward": "walk backward",
+"walk forward": "walk forward",
+"walk left": "walk left",
+"walk right": "walk right"
+}
+
 [editable path="audioManager"]
+[editable path="personnage"]

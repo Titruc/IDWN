@@ -8,6 +8,8 @@
 
 config_version=5
 
+show_default_buttons=false
+
 [application]
 
 config/name="IDWN"
@@ -20,7 +22,6 @@ boot_splash/minimum_display_time=3000
 [audio]
 
 driver/enable_input=true
-driver/mix_rate=0
 
 [autoload]
 
@@ -40,7 +41,7 @@ project/assembly_name="IDWN"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/netfox.internals/plugin.cfg", "res://addons/netfox/plugin.cfg")
+enabled=PackedStringArray("res://addons/netfox.internals/plugin.cfg", "res://addons/netfox/plugin.cfg", "res://addons/tool_button/plugin.cfg")
 
 [filesystem]
 

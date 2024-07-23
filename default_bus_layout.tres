@@ -1,9 +1,16 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://bcs5rd1cm5tfq"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://bcs5rd1cm5tfq"]
 
 [sub_resource type="AudioEffectCapture" id="AudioEffectCapture_433lf"]
 resource_name = "Capture"
 
+[sub_resource type="VOIPInputCapture" id="VOIPInputCapture_20mx3"]
+resource_name = "VOIPInputCapture"
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_3cieq"]
+resource_name = "Amplify"
+
 [resource]
+bus/0/volume_db = 6.02
 bus/1/name = &"Muted"
 bus/1/solo = false
 bus/1/mute = true
@@ -18,3 +25,19 @@ bus/2/volume_db = 0.0
 bus/2/send = &"Muted"
 bus/2/effect/0/effect = SubResource("AudioEffectCapture_433lf")
 bus/2/effect/0/enabled = true
+bus/3/name = &"mic"
+bus/3/solo = false
+bus/3/mute = true
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("VOIPInputCapture_20mx3")
+bus/3/effect/0/enabled = true
+bus/4/name = &"speak"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.0
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectAmplify_3cieq")
+bus/4/effect/0/enabled = true

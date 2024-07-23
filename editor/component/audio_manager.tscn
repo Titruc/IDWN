@@ -6,8 +6,7 @@
 
 [node name="audioManager" type="Node"]
 script = ExtResource("1_072c6")
-outputPath = NodePath("input")
 
 [node name="input" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_lbr6b")
-bus = &"Record"
+bus = &"mic"
