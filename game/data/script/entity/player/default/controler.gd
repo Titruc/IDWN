@@ -21,6 +21,7 @@ var bob_progress : float = 0.0
 @export var voiceManager : Node
 @export var animationHandler : animationHandler
 @export var model : Node3D
+@export var repulseHandler : repulseHandler
 
 
 func _ready():
@@ -71,6 +72,8 @@ func _rollback_tick(delta, _tick, _is_fresh):
 			else:
 				velocityHandler.setVelocityXZ(Vector2(0, 0))
 				animationHandler.playAnimation("idle")
+			repulse(repulseHandler.getOtherBody())
+			
 			
 	velocity = velocityHandler.getFinalVelocity()
 	velocity *= NetworkTime.physics_factor
@@ -120,7 +123,6 @@ func interact():
 
 func getNearestVector(dir : Vector2):
 	var angles = rad_to_deg(Vector2(0,-1).angle_to(dir))
-	print(angles)
 	if angles <= 30 and angles >= -30:
 		return "walk forward"
 	elif angles > 91 and angles <= 181 or angles < -91 and angles >= -181:
@@ -129,3 +131,10 @@ func getNearestVector(dir : Vector2):
 		return "walk right"
 	elif angles >= -91 and angles < -30:
 		return "walk left"
+
+func repulse(bodyList):
+	for body in bodyList:
+		var vector : Vector3 = (body.position - self.position).normalized() * -1
+		var vectorToVector2 : Vector2 = Vector2(vector.x, vector.z)
+		var repulseForce : float = (repulseHandler.getRadius() - vectorToVector2.length()) + 1
+		velocityHandler.addVelocityXZ(vectorToVector2 * repulseForce)

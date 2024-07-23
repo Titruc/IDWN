@@ -53,6 +53,9 @@ func setVelocityXZ(velocityXZ : Vector2):
 	Velocity.x = velocityXZ[0]
 	Velocity.z = velocityXZ[1]
 
+func addVelocityXZ(velocityAdd : Vector2):
+	Velocity += Vector3(velocityAdd.x,0,velocityAdd.y)
+	
 func getFinalVelocity():
 	'''
 	get Velocity

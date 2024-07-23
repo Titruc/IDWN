@@ -4,6 +4,7 @@
 
 [sub_resource type="AudioStreamVOIP" id="AudioStreamVOIP_kxp5p"]
 resource_local_to_scene = true
+resource_name = ""
 
 [sub_resource type="Curve" id="Curve_2s1ev"]
 _data = [Vector2(0.2, 0), 0.0, 0.0, 0, 0, Vector2(0.826316, 0.296703), 1.16677, 1.16677, 0, 0, Vector2(1, 1), 9.51161, 0.0, 0, 0]
@@ -17,7 +18,6 @@ unit_size = 15.0
 max_db = 6.0
 autoplay = true
 max_distance = 30.0
-bus = &"speak"
 doppler_tracking = 2
 script = ExtResource("1_8ic30")
 volume_curve = SubResource("Curve_2s1ev")

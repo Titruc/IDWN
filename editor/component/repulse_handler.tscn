@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmvb2bhw5jycr"]
+
+[ext_resource type="Script" path="res://game/data/script/component/repulseHandler.gd" id="1_y8c1y"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7vgc6"]
+radius = 0.511061
+
+[node name="repulseHandler" type="Node3D" node_paths=PackedStringArray("area", "collider")]
+script = ExtResource("1_y8c1y")
+area = NodePath("repusleZone")
+collider = NodePath("repusleZone/coll")
+
+[node name="repusleZone" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="coll" type="CollisionShape3D" parent="repusleZone"]
+shape = SubResource("CylinderShape3D_7vgc6")

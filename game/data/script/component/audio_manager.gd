@@ -1,7 +1,7 @@
 extends Node
 
 var effect : AudioEffect
-var mic_capture: VOIPInputCapture
+var mic_capture
 @export var output : AudioStreamPlayer3D
 # Called when the node enters the scene tree for the first time.
 func _ready():

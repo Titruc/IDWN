@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dwxc0nojql6tp"]
+[gd_scene load_steps=16 format=3 uid="uid://dwxc0nojql6tp"]
 
 [ext_resource type="Script" path="res://game/data/script/entity/player/default/controler.gd" id="1_d2vbu"]
 [ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
@@ -12,7 +12,6 @@
 [ext_resource type="MissingResource" uid="uid://bexepmloj7f04" path="res://editor/component/new_audio_stream_voip.tres" id="10_08kor"]
 [ext_resource type="PackedScene" uid="uid://bqch4ebe5ekvs" path="res://game/assets/model/player/personnage.glb" id="11_kpor2"]
 [ext_resource type="PackedScene" uid="uid://clqs8mex8rtj7" path="res://editor/component/animation_handler.tscn" id="12_t7u18"]
-[ext_resource type="PackedScene" uid="uid://cmvb2bhw5jycr" path="res://editor/component/repulse_handler.tscn" id="13_d8yxi"]
 
 [sub_resource type="Resource" id="Resource_qwne1"]
 script = ExtResource("2_mss32")
@@ -39,11 +38,10 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xayt8"]
-radius = 0.190449
+radius = 0.236006
 height = 1.59144
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand", "voiceManager", "animationHandler", "model", "repulseHandler")]
-collision_layer = 5
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand", "voiceManager", "animationHandler", "model")]
 script = ExtResource("1_d2vbu")
 playerAttributeVar = SubResource("Resource_qwne1")
 velocityHandler = NodePath("velocityComponent")
@@ -53,7 +51,6 @@ hand = NodePath("head/playerCamera/handComponent")
 voiceManager = NodePath("audioManager")
 animationHandler = NodePath("animationHandler")
 model = NodePath("personnage")
-repulseHandler = NodePath("repulseHandler")
 
 [node name="head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57714, 0)
@@ -146,9 +143,6 @@ action = {
 [node name="mainCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0482497, 0)
 shape = SubResource("CapsuleShape3D_xayt8")
-
-[node name="repulseHandler" parent="." instance=ExtResource("13_d8yxi")]
-raduis = 0.6
 
 [editable path="audioManager"]
 [editable path="personnage"]
