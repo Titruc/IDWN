@@ -1,18 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://bis3avr2iu1k0"]
+[gd_scene load_steps=14 format=3 uid="uid://bis3avr2iu1k0"]
 
 [ext_resource type="Texture2D" uid="uid://cwoq3st6476n2" path="res://editor/assets/Texture/Temporaire/Echiquier.jpeg" id="1_34anw"]
+[ext_resource type="Shader" path="res://game/assets/shader/sky/nuitetoile.gdshader" id="1_vd6j0"]
 [ext_resource type="PackedScene" uid="uid://dqhybttvsi2dp" path="res://editor/component/interactible_component.tscn" id="2_kwybw"]
 [ext_resource type="Script" path="res://game/data/script/printTestForInteraction.gd" id="3_h6m00"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vp73w"]
-sky_top_color = Color(1, 1, 1, 1)
-sky_horizon_color = Color(0.889238, 0.889238, 0.889238, 1)
-sky_energy_multiplier = 0.0
-ground_bottom_color = Color(0.556953, 0.556953, 0.556953, 1)
-ground_horizon_color = Color(0.889238, 0.889238, 0.889238, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ss78u"]
+shader = ExtResource("1_vd6j0")
+shader_parameter/star_height = 2.445
+shader_parameter/star_blend = 0.06
+shader_parameter/depth_blend = 0.23
+shader_parameter/star_size = 0.03
+shader_parameter/flare_ratio = 0.55
+shader_parameter/star_layers = 7
 
 [sub_resource type="Sky" id="Sky_wavme"]
-sky_material = SubResource("ProceduralSkyMaterial_vp73w")
+sky_material = SubResource("ShaderMaterial_ss78u")
 
 [sub_resource type="Environment" id="Environment_twlpk"]
 background_mode = 2
