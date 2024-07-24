@@ -1,8 +1,9 @@
+
+@icon("res://editor/assets/component/animationHandler.png")
 @tool
 extends Node
 
 class_name animationHandler
-
 @export var model : Node3D
 @export var animationPlayer : AnimationPlayer
 @export var action : Dictionary = {}

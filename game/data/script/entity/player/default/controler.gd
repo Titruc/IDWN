@@ -72,7 +72,8 @@ func _rollback_tick(delta, _tick, _is_fresh):
 				velocityHandler.setVelocityXZ(Vector2(0, 0))
 			
 			animationHandler.setBlendValue2D(input_dir)
-			repulse(repulseHandler.getOtherBody())
+			for body in repulseHandler.getOtherBody():
+				velocityHandler.addVelocityXZ(repulseHandler.repulse(body,self))
 			
 			
 	velocity = velocityHandler.getFinalVelocity()
@@ -132,9 +133,3 @@ func getNearestVector(dir : Vector2):
 	elif angles >= -91 and angles < -30:
 		return "walk left"
 
-func repulse(bodyList):
-	for body in bodyList:
-		var vector : Vector3 = (body.position - self.position) * -1
-		var vectorToVector2 : Vector2 = Vector2(vector.x, vector.z)
-		var repulseForce : float = (repulseHandler.getRadius() - vectorToVector2.length()) + 1
-		velocityHandler.addVelocityXZ(vectorToVector2.normalized() * repulseForce * 1.5)
