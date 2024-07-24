@@ -22,7 +22,7 @@ var bob_progress : float = 0.0
 @export var animationHandler : animationHandler
 @export var model : Node3D
 @export var repulseHandler : repulseHandler
-@export var dirForAnim : Vector2
+@export var dirForAnim : Vector2 = Vector2(0,0)
 
 
 func _ready():
@@ -72,8 +72,10 @@ func _rollback_tick(delta, _tick, _is_fresh):
 				velocityHandler.setVelocityXZ(Vector2(direction.x * speed, direction.z * speed))
 			else:
 				velocityHandler.setVelocityXZ(Vector2(0, 0))
-			dirForAnim = lerp(dirForAnim, input_dir, Vector2(0.2,0.2))
-			animationHandler.setBlendValue2D(dirForAnim)
+			
+			dirForAnim = Vector2(lerp(dirForAnim.x, input_dir.x + int(inputhandler.isSprinting), 0.3),lerp(dirForAnim.y, input_dir.y + int(inputhandler.isSprinting), 0.3))
+			
+			animationHandler.setBlendValue2D(input_dir)
 			
 			for body in repulseHandler.getOtherBody():
 				velocityHandler.addVelocityXZ(repulseHandler.repulse(body,self))
