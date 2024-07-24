@@ -68,10 +68,14 @@ func _rollback_tick(delta, _tick, _is_fresh):
 
 			if direction:
 				velocityHandler.setVelocityXZ(Vector2(direction.x * speed, direction.z * speed))
-				animationHandler.playAnimation(getNearestVector(inputhandler.direction))
+				animationHandler.playAnimation("idle",false)
+				animationHandler.playAnimation("isWalking",true)
 			else:
 				velocityHandler.setVelocityXZ(Vector2(0, 0))
-				animationHandler.playAnimation("idle")
+				animationHandler.playAnimation("idle",true)
+				animationHandler.playAnimation("isWalking",false)
+			
+			animationHandler.setBlendValue2D(input_dir)
 			repulse(repulseHandler.getOtherBody())
 			
 			
@@ -134,7 +138,7 @@ func getNearestVector(dir : Vector2):
 
 func repulse(bodyList):
 	for body in bodyList:
-		var vector : Vector3 = (body.position - self.position).normalized() * -1
+		var vector : Vector3 = (body.position - self.position) * -1
 		var vectorToVector2 : Vector2 = Vector2(vector.x, vector.z)
 		var repulseForce : float = (repulseHandler.getRadius() - vectorToVector2.length()) + 1
-		velocityHandler.addVelocityXZ(vectorToVector2 * repulseForce)
+		velocityHandler.addVelocityXZ(vectorToVector2.normalized() * repulseForce * 1.5)

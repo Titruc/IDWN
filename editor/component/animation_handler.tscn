@@ -4,3 +4,5 @@
 
 [node name="animationHandler" type="Node"]
 script = ExtResource("1_lb7mc")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
