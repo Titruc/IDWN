@@ -24,4 +24,4 @@ func updateAnimationParameter(key : String,boolean : bool):
 	animTree["parameters/conditions/" + key] = boolean
 
 func setBlendValue2D(blendValue : Vector2):
-	animTree["parameters/walk/blend_position"] = blendValue
+	animTree["parameters/walkidle/blend_position"] = blendValue

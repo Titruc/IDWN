@@ -68,12 +68,8 @@ func _rollback_tick(delta, _tick, _is_fresh):
 
 			if direction:
 				velocityHandler.setVelocityXZ(Vector2(direction.x * speed, direction.z * speed))
-				animationHandler.playAnimation("idle",false)
-				animationHandler.playAnimation("isWalking",true)
 			else:
 				velocityHandler.setVelocityXZ(Vector2(0, 0))
-				animationHandler.playAnimation("idle",true)
-				animationHandler.playAnimation("isWalking",false)
 			
 			animationHandler.setBlendValue2D(input_dir)
 			repulse(repulseHandler.getOtherBody())
