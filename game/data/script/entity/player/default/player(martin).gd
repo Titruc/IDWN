@@ -75,7 +75,6 @@ func _rollback_tick(delta, _tick, _is_fresh):
 			animationHandler.setBlendValue2D(input_dir)
 			for body in repulseHandler.getOtherBody():
 				velocityHandler.addVelocityXZ(repulseHandler.repulse(body,self))
-			print(inputhandler.isSprinting, " ", inputhandler.isCrouch)
 	
 			
 	velocity = velocityHandler.getFinalVelocity()
