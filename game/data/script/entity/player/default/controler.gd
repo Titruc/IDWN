@@ -75,7 +75,6 @@ func _rollback_tick(delta, _tick, _is_fresh):
 			for body in repulseHandler.getOtherBody():
 				velocityHandler.addVelocityXZ(repulseHandler.repulse(body,self))
 			
-			
 	velocity = velocityHandler.getFinalVelocity()
 	velocity *= NetworkTime.physics_factor
 	move_and_slide()
