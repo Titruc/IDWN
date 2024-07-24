@@ -11,3 +11,5 @@ func _ready():
 	
 func isOnFloorImprove():
 	return NodeToCheck.is_on_floor() or raycast.is_colliding()
+	
+

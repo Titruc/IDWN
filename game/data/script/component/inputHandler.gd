@@ -6,6 +6,7 @@ class_name inputHandler
 @export var isSprinting : bool = false
 @export var direction : Vector2 = Vector2(0, 0)
 @export var leftClick : bool = false
+@export var isCrouch : bool = false
 
 func _ready():
 	NetworkTime.before_tick_loop.connect(_gather)
@@ -19,4 +20,5 @@ func _gather():
 	isSprinting = Input.is_action_pressed("sprint")
 	direction = Input.get_vector("left", "right", "up", "down")
 	leftClick = Input.is_action_pressed("left_click")
+	isCrouch = Input.is_action_pressed("crouch")
 
