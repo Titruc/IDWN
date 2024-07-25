@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 #const for move
 @export var playerAttributeVar : playerAttribute
+@export var playerName : String = ""
 
 #var for movement
 var speed : float = 0.0
@@ -10,6 +11,7 @@ var speed : float = 0.0
 
 #var for juicy stuff
 var bob_progress : float = 0.0
+var dirForAnim : Vector2 = Vector2(0,0)
 
 
 @onready var head = $head
@@ -22,13 +24,15 @@ var bob_progress : float = 0.0
 @export var animationHandler : animationHandler
 @export var model : Node3D
 @export var repulseHandler : repulseHandler
-@export var dirForAnim : Vector2 = Vector2(0,0)
+@export var nameLabel : Label3D
 
 
 func _ready():
+	
 	set_multiplayer_authority(name.to_int())
 	inputhandler.set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
+		setName()
 		model.hide()
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		camera.make_current()
@@ -136,5 +140,10 @@ func _headbob(time) -> Vector3:
 func interact():
 	hand.interact()
 
-
-
+func setName():
+	nameLabel.hide()
+	playerName = GameManager.playerData[multiplayer.get_unique_id()]["name"]
+	if playerName == "":
+		playerName = "Player " + self.name
+	nameLabel.text = playerName
+	MKUtil.print("you are now " + playerName)

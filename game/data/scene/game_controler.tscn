@@ -12,7 +12,7 @@
 script = ExtResource("1_d1bn3")
 escape_menu = NodePath("../ui/escape_menu")
 
-[node name="multiplayerControler" type="Node" parent="." node_paths=PackedStringArray("lobbyScene", "gameControler", "menu", "ipGetter", "code", "codeGetter")]
+[node name="multiplayerControler" type="Node" parent="." node_paths=PackedStringArray("lobbyScene", "gameControler", "menu", "ipGetter", "code", "codeGetter", "nameGetter")]
 script = ExtResource("3_pn7fh")
 playerScene = ExtResource("3_m42tk")
 lobbyScene = NodePath("../lobby")
@@ -21,6 +21,7 @@ menu = NodePath("../ui/multiplayerMenue")
 ipGetter = NodePath("../ui/multiplayerMenue/ipGetter")
 code = NodePath("../ui/multiplayerMenue/codeReview")
 codeGetter = NodePath("../ui/multiplayerMenue/codeGetter")
+nameGetter = NodePath("../ui/multiplayerMenue/nameGetter")
 
 [node name="lobby" parent="." instance=ExtResource("2_6wbr4")]
 
@@ -88,6 +89,19 @@ offset_top = 316.0
 offset_right = 1122.0
 offset_bottom = 364.0
 text = "join with code"
+
+[node name="nameGetter" type="TextEdit" parent="ui/multiplayerMenue"]
+offset_left = 68.0
+offset_top = 67.0
+offset_right = 373.0
+offset_bottom = 102.0
+
+[node name="nametk" type="RichTextLabel" parent="ui/multiplayerMenue"]
+offset_left = 73.0
+offset_top = 41.0
+offset_right = 219.0
+offset_bottom = 81.0
+text = "name"
 
 [node name="escape_menu" type="Node2D" parent="ui"]
 visible = false
