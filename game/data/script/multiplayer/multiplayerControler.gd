@@ -50,13 +50,13 @@ func on_new_connection(id : int):
 @rpc("any_peer","call_local")
 func connected_to_server(id : int):
 	var dataToSend = {
-		"name" : nameGetter.text
+		"name" : Common.banUnallowedChar(["\n"],nameGetter.text)
 	}
 	broadcastPlayerData.rpc(id, dataToSend)
 	
 @rpc("any_peer","call_local")
 func broadcastPlayerData(id : int, playerData):
-	MKUtil.print("data is one time !" + str(id) + str(playerData))
+	MKUtil.print("data is one time !")
 	if not GameManager.playerData.has(id):
 		GameManager.playerData[id] = playerData
 	
@@ -131,7 +131,6 @@ func close_upnp(upnpPar : UPNP, port : int):
 	upnpPar.delete_port_mapping(port,"TCP")
 
 func _removePlayer(id):
-	print("remove")
 	var player = lobbyScene.find_child(str(id))
 	if player:
 		lobbyScene.call_deferred("remove_child", player)

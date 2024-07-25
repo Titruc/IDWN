@@ -146,4 +146,4 @@ func setName():
 	if playerName == "":
 		playerName = "Player " + self.name
 	nameLabel.text = playerName
-	MKUtil.print("you are now " + playerName)
+	MKUtil.print("you are now : " + playerName)
