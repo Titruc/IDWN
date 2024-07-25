@@ -73,9 +73,8 @@ func _rollback_tick(delta, _tick, _is_fresh):
 			else:
 				velocityHandler.setVelocityXZ(Vector2(0, 0))
 			
-			dirForAnim = Vector2(lerp(dirForAnim.x, input_dir.x + int(inputhandler.isSprinting), 0.3),lerp(dirForAnim.y, input_dir.y + int(inputhandler.isSprinting), 0.3))
-			
-			animationHandler.setBlendValue2D(input_dir)
+			dirForAnim = Vector2(lerp(dirForAnim.x, input_dir.x + int(inputhandler.isSprinting) * input_dir.x, 0.3),lerp(dirForAnim.y, input_dir.y + int(inputhandler.isSprinting) * input_dir.y, 0.3))
+			animationHandler.setBlendValue2D(dirForAnim)
 			
 			for body in repulseHandler.getOtherBody():
 				velocityHandler.addVelocityXZ(repulseHandler.repulse(body,self))
