@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://dwxc0nojql6tp"]
+[gd_scene load_steps=33 format=3 uid="uid://dwxc0nojql6tp"]
 
 [ext_resource type="Script" path="res://game/data/script/entity/player/default/player(martin).gd" id="1_b7wgg"]
 [ext_resource type="PackedScene" uid="uid://d03p635q2nmy" path="res://editor/component/velocity_component.tscn" id="2_ler7n"]
 [ext_resource type="Script" path="res://game/data/script/ressources/player/playerAttribute.gd" id="2_mss32"]
 [ext_resource type="PackedScene" uid="uid://cr7mw00e22s6r" path="res://editor/component/hand_component.tscn" id="3_2bvbn"]
 [ext_resource type="PackedScene" uid="uid://bptq7ti2b10tu" path="res://editor/component/input_handler.tscn" id="4_7n2wk"]
+[ext_resource type="Script" path="res://game/data/script/entity/player/default/PlayerName.gd" id="4_ww7c5"]
 [ext_resource type="Script" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="5_ceukn"]
 [ext_resource type="Script" path="res://addons/netfox/tick-interpolator.gd" id="6_lx473"]
 [ext_resource type="PackedScene" uid="uid://3ogpjn5r5wfk" path="res://editor/component/is_on_floor_component.tscn" id="7_v32cn"]
@@ -13,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://bqch4ebe5ekvs" path="res://game/assets/model/player/personnage.glb" id="11_kpor2"]
 [ext_resource type="PackedScene" uid="uid://clqs8mex8rtj7" path="res://editor/component/animation_handler.tscn" id="12_t7u18"]
 [ext_resource type="PackedScene" uid="uid://cmvb2bhw5jycr" path="res://editor/component/repulse_handler.tscn" id="13_d8yxi"]
+[ext_resource type="Texture2D" uid="uid://cwoq3st6476n2" path="res://editor/assets/Texture/Temporaire/Echiquier.jpeg" id="14_6shsj"]
+[ext_resource type="FontFile" uid="uid://w7x1dhxqgc0g" path="res://editor/assets/Texture/Temporaire/AtariFontFullVersion-ZJ23.ttf" id="15_4xv0p"]
 
 [sub_resource type="Resource" id="Resource_d2mrt"]
 script = ExtResource("2_mss32")
@@ -106,6 +109,9 @@ states/walkidle/position = Vector2(384, 100)
 transitions = ["Start", "walkidle", SubResource("AnimationNodeStateMachineTransition_t4o04")]
 graph_offset = Vector2(-85.5709, 17.2828)
 
+[sub_resource type="FontVariation" id="FontVariation_ikvv5"]
+base_font = ExtResource("15_4xv0p")
+
 [node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("velocityHandler", "inputhandler", "isOnFloor", "hand", "voiceManager", "animationHandler", "model", "repulseHandler")]
 collision_layer = 4
 script = ExtResource("1_b7wgg")
@@ -169,46 +175,46 @@ autoplay = true
 transform = Transform3D(-3.90632e-08, 0, 0.893661, 0, 0.893661, 0, -0.893661, 0, -3.90632e-08, 0, -0.8, 0)
 
 [node name="Skeleton3D" parent="personnage/Armature" index="0"]
-bones/0/position = Vector3(-0.35668, 0.994634, -0.272577)
+bones/0/position = Vector3(-0.355277, 0.886771, -0.122201)
 bones/0/rotation = Quaternion(-0.70709, 0, 0, 0.707123)
 bones/1/position = Vector3(-0.377549, 1.30758, -0.99551)
 bones/1/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
-bones/2/position = Vector3(0.351571, 0.994626, 0.321721)
+bones/2/position = Vector3(0.352975, 0.88677, 0.171339)
 bones/2/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
 bones/3/position = Vector3(0.377549, 1.30758, -0.99551)
 bones/3/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
-bones/4/position = Vector3(-0.127087, -0.119543, -0.442257)
+bones/4/position = Vector3(-0.127087, -0.0433481, -0.105906)
 bones/4/rotation = Quaternion(0.999909, 0, 0, 0.0135213)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/rotation = Quaternion(-0.697481, 1.16749e-07, -1.13634e-07, 0.716603)
-bones/6/position = Vector3(0.127087, 0.251689, 0.334385)
+bones/6/position = Vector3(0.127087, 0.207106, -0.00282138)
 bones/6/rotation = Quaternion(0.999909, 0, 0, 0.0135213)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/rotation = Quaternion(-0.697481, -9.71007e-07, 9.45096e-07, 0.716603)
-bones/8/position = Vector3(-0.0093215, 0.808703, -0.142724)
-bones/8/rotation = Quaternion(0.065906, -0.00976376, 0.000683044, 0.997778)
-bones/9/position = Vector3(0.00932111, 0.173511, 0.14274)
+bones/8/position = Vector3(-0.0093215, 0.817013, -0.142724)
+bones/8/rotation = Quaternion(0.0658725, -0.0319863, 0.00225185, 0.997313)
+bones/9/position = Vector3(0.00931819, 0.171023, 0.142858)
 bones/9/rotation = Quaternion(-0.0236536, -0.000572184, -0.000572185, 0.99972)
-bones/10/position = Vector3(0.0147867, -0.0161616, 0.142476)
+bones/10/position = Vector3(0.0147867, -0.00280596, 0.142476)
 bones/11/rotation = Quaternion(-0.0196429, 0.13877, 0.13877, 0.980357)
-bones/12/rotation = Quaternion(0.739333, -0.192523, -0.000294477, 0.64523)
+bones/12/rotation = Quaternion(0.854708, -0.174801, 0.019368, 0.48841)
 bones/12/scale = Vector3(1.00002, 1, 1)
-bones/13/rotation = Quaternion(0.558322, 3.98975e-08, 2.54078e-07, 0.829624)
+bones/13/rotation = Quaternion(0.695891, 5.58952e-08, 2.83078e-07, 0.718148)
 bones/13/scale = Vector3(1, 1, 1)
 bones/14/rotation = Quaternion(-0.713862, -3.06106e-08, 3.12039e-08, 0.700286)
 bones/15/rotation = Quaternion(-0.0196429, -0.13877, -0.13877, 0.980357)
-bones/16/rotation = Quaternion(0.963585, 0.110595, -0.168058, -0.176149)
+bones/16/rotation = Quaternion(0.975841, 0.139109, -0.168446, -0.0029947)
 bones/16/scale = Vector3(1.00002, 1, 1)
-bones/17/rotation = Quaternion(0.00285206, -3.03179e-08, -9.61434e-10, 0.999996)
+bones/17/rotation = Quaternion(0.00284781, -3.02184e-08, -9.0039e-10, 0.999996)
 bones/17/scale = Vector3(1, 1, 1)
 bones/18/rotation = Quaternion(-0.713862, -3.06104e-08, 3.12039e-08, 0.700286)
-bones/19/position = Vector3(0.0098338, 0.618327, 0.123023)
+bones/19/position = Vector3(0.00982738, 0.625674, 0.124963)
 bones/19/rotation = Quaternion(0.128672, 0.000488889, 0.00048889, 0.991687)
-bones/20/position = Vector3(0.272396, 0.530746, 0.141148)
+bones/20/position = Vector3(0.272396, 0.511988, 0.141148)
 bones/20/rotation = Quaternion(-0.26127, 0.43939, 0.439342, 0.738683)
-bones/21/rotation = Quaternion(0.220861, -0.341919, 0.908243, 0.0969876)
+bones/21/rotation = Quaternion(0.13455, -0.414362, 0.896752, -0.077687)
 bones/21/scale = Vector3(1, 1, 1)
-bones/22/rotation = Quaternion(0.00473194, 0.00019607, -0.663048, 0.748562)
+bones/22/rotation = Quaternion(0.00449152, 0.000203552, -0.629356, 0.777104)
 bones/22/scale = Vector3(1, 1, 1)
 bones/23/rotation = Quaternion(0.00627332, 0.00595768, 0.0344052, 0.999371)
 bones/23/scale = Vector3(1, 1, 1)
@@ -217,11 +223,11 @@ bones/26/rotation = Quaternion(-0.0944182, -0.0896815, -0.374672, 0.917967)
 bones/26/scale = Vector3(1, 1, 1)
 bones/28/rotation = Quaternion(-0.00850095, -1.10335e-07, -0.700858, 0.71325)
 bones/28/scale = Vector3(1, 1, 1)
-bones/29/position = Vector3(-0.251963, 0.527451, 0.14805)
+bones/29/position = Vector3(-0.251963, 0.508693, 0.14805)
 bones/29/rotation = Quaternion(-0.26127, -0.439322, -0.439309, 0.738743)
 bones/29/scale = Vector3(1, 1, 1)
-bones/30/rotation = Quaternion(0.0995999, -0.418183, 0.799588, 0.419358)
-bones/31/rotation = Quaternion(0.00367922, -0.000224357, 0.51569, 0.856767)
+bones/30/rotation = Quaternion(0.044554, -0.437441, 0.855222, 0.274328)
+bones/31/rotation = Quaternion(0.00421705, -0.000211197, 0.591069, 0.80661)
 bones/31/scale = Vector3(1, 1, 1)
 bones/32/rotation = Quaternion(0.00627335, -0.00595769, -0.0344052, 0.999371)
 bones/32/scale = Vector3(1, 1, 1)
@@ -247,6 +253,23 @@ parameters/walkidle/blend_position = Vector2(0, -1.93651)
 
 [node name="repulseHandler" parent="." instance=ExtResource("13_d8yxi")]
 raduis = 0.3
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0416641, 1.34248, 0.0166157)
+texture = ExtResource("14_6shsj")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(200, 200)
+script = ExtResource("4_ww7c5")
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = SubResource("FontVariation_ikvv5")
+text = "name,Mfds"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [editable path="audioManager"]
 [editable path="personnage"]
