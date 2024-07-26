@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ccsp7rq62n7iq"]
+
+[ext_resource type="Shader" path="res://game/assets/shader/cache-misère.gdshader" id="1_2big6"]
+
+[resource]
+shader = ExtResource("1_2big6")
+shader_parameter/levels = 3
+shader_parameter/spread = -0.005

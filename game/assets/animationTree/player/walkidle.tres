@@ -1,0 +1,50 @@
+[gd_resource type="AnimationNodeBlendSpace2D" load_steps=10 format=3 uid="uid://ch2h8y2fsk2tc"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2br44"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_swr3i"]
+animation = &"walk backward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_et1b0"]
+animation = &"walk forward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ykxf"]
+animation = &"walk left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cqq8t"]
+animation = &"walk right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a10vd"]
+animation = &"run right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_34ewv"]
+animation = &"run left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0p0yw"]
+animation = &"run backward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j3ge8"]
+animation = &"run forward"
+
+[resource]
+blend_point_0/node = SubResource("AnimationNodeAnimation_2br44")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_swr3i")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_et1b0")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_6ykxf")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_cqq8t")
+blend_point_4/pos = Vector2(1, 0)
+blend_point_5/node = SubResource("AnimationNodeAnimation_a10vd")
+blend_point_5/pos = Vector2(2, 0)
+blend_point_6/node = SubResource("AnimationNodeAnimation_34ewv")
+blend_point_6/pos = Vector2(-2, 0)
+blend_point_7/node = SubResource("AnimationNodeAnimation_0p0yw")
+blend_point_7/pos = Vector2(0, 2)
+blend_point_8/node = SubResource("AnimationNodeAnimation_j3ge8")
+blend_point_8/pos = Vector2(0, -2)
+min_space = Vector2(-2, -2)
+max_space = Vector2(2, 2)
