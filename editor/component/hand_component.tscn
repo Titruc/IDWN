@@ -7,3 +7,4 @@ script = ExtResource("1_xgw0u")
 
 [node name="hand" type="RayCast3D" parent="."]
 target_position = Vector3(1, 0, 0)
+collision_mask = 9
