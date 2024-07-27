@@ -12,7 +12,7 @@ func isInteractible(collider : Node):
 	return has_child_of_type(collider)
 
 func getInteraction():
-	return hand.get_collider().get_parent()
+	return hand.get_collider()
 
 func has_child_of_type(parent_node: Node):
 	for child in parent_node.get_children():
@@ -22,10 +22,11 @@ func has_child_of_type(parent_node: Node):
 	return false
 	
 func interact():
-	var interactible = getInteraction()
-	if interactible:
-		if isInteractible(interactible):
-			isInteractible(interactible).interact()
+	if isColliding():
+		var interactible = getInteraction()
+		if interactible:
+			if isInteractible(interactible):
+				isInteractible(interactible).interact()
 
 func isColliding():
 	return hand.is_colliding()

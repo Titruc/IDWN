@@ -110,14 +110,16 @@ transform = Transform3D(0.876884, 0, 0, 0, 0.567639, 0, 0, 0, 0.828655, -2.39688
 mesh = SubResource("BoxMesh_qbijj")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="bibou"]
+collision_layer = 9
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="bibou/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_fsk7t")
 
-[node name="interactibleComponent" parent="bibou" node_paths=PackedStringArray("scriptToExecute") instance=ExtResource("2_kwybw")]
+[node name="interactibleComponent" parent="bibou/StaticBody3D" node_paths=PackedStringArray("scriptToExecute") instance=ExtResource("2_kwybw")]
 scriptToExecute = NodePath("addAScriptOnThisNode")
 
-[node name="addAScriptOnThisNode" parent="bibou/interactibleComponent" index="0"]
+[node name="addAScriptOnThisNode" parent="bibou/StaticBody3D/interactibleComponent" index="0"]
 script = ExtResource("3_h6m00")
 
-[editable path="bibou/interactibleComponent"]
+[editable path="bibou/StaticBody3D/interactibleComponent"]
